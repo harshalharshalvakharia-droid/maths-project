@@ -44,8 +44,8 @@
 
 % ── Header / Footer ──────────────────────────────────────────
 \pagestyle{fancy}\fancyhf{}
-\rhead{\textcolor{navrachana}{\small CME202 \textendash{} Mathematics II \textbar{} Neural Networks}}
-\lhead{\textcolor{navrachana}{\small Navrachana University}}
+\rhead{{ \textendash{} \textbar{} The Architecture of Intelligence}}
+\lhead{\textcolor{navrachana}{}}
 \cfoot{\textcolor{navblue}{\small \thepage}}
 \renewcommand{\headrulewidth}{0.6pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{navrachana}\leaders\hrule height \headrulewidth\hfill}}
@@ -111,11 +111,11 @@
 \centering\vspace*{0.5cm}
 
 % University logo
-\includegraphics[width=4.5cm]{navrachana_logo.png}\\[0.5cm]
+\includegraphics[width=2.5cm]{navrachana_logo.png}\\[0.5cm]
 
 {\Large\bfseries\color{navrachana} Navrachana University}\\[0.15cm]
 {\large\color{navblue} School of Engineering and Technology}\\[0.1cm]
-{\normalsize B.Tech (CE \textbar{} ME \textbar{} EEE) \quad $\boldsymbol{\cdot}$ \quad CME202 \textendash{} Mathematics II}
+   \quad CME202 \textendash{} Mathematics II}
 
 \vspace{0.6cm}
 {\color{navrachana}\rule{\linewidth}{1pt}}\\[0.35cm]
@@ -176,7 +176,7 @@ Fourier Analysis $\;\boldsymbol{\cdot}\;$ Numerical Optimisation}
 \section{Abstract}
 % ============================================================
 
-Neural networks are behind almost every modern AI system, and every operation inside them is mathematics. This project takes a neural network apart, step by step, and maps each operation directly to topics from CME202. We cover four areas: \textbf{linear algebra} for understanding how data flows through the network; \textbf{differential calculus} for understanding how it learns; \textbf{Fourier analysis} for understanding the activation function at a frequency level; and \textbf{numerical methods} for understanding how the optimiser finds the solution iteratively.
+Neural networks are behind almost every modern AI system, and every operation inside them is mathematics. This project takes a neural network apart, step by step, and maps each operation directly to topics from Math. We cover four areas: \textbf{linear algebra} for understanding how data flows through the network; \textbf{differential calculus} for understanding how it learns; \textbf{Fourier analysis} for understanding the activation function at a frequency level; and \textbf{numerical methods} for understanding how the optimiser finds the solution iteratively.
 
 To ground the theory, a real neural network of architecture $[2 \to 8 \to 8 \to 1]$ was trained on the XOR classification problem from scratch using Python and NumPy only --- no machine learning libraries whatsoever. The network reached \textbf{99.3\% accuracy} in 700 training steps. Every key result --- eigenvalues, Fourier coefficients, the analytical minimum of the loss, convergence of gradient descent --- was derived by hand and cross-verified against the code output.
 
@@ -215,7 +215,7 @@ All four topics are covered through both theory and implementation. A neural net
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\textwidth]{nn_architecture.png}
+  \includegraphics[width=0.99\textwidth]{nn_architecture.png}
   \caption{The $[2 \to 8 \to 8 \to 1]$ fully connected feedforward neural network used in this project. Input nodes receive $\mathbf{x} \in \mathbb{R}^2$; each connection carries a learnable weight; hidden neurons apply the sigmoid activation $\sigma$; the output neuron produces probability $\hat{y} \in [0,1]$.}
   \label{fig:arch}
 \end{figure}
@@ -654,7 +654,7 @@ The 99.3\% accuracy achieved on the XOR problem was not produced by a library do
 
 \begin{table}[H]
   \centering
-  \caption{CME202 mathematics topics and their role in neural network training}
+  \caption{Mathematics topics and their role in neural network training}
   \renewcommand{\arraystretch}{1.3}
   \begin{tabular}{llll}
     \toprule
@@ -672,7 +672,7 @@ The 99.3\% accuracy achieved on the XOR problem was not produced by a library do
 \subsection{Future Directions}
 
 \begin{itemize}[leftmargin=2em, itemsep=4pt]
-  \item Analyse gradient descent as a discrete dynamical system using the ODE stability framework from CME202, to formally characterise the convergence radius.
+  \item Analyse gradient descent as a discrete dynamical system using the ODE stability framework from Maths, to formally characterise the convergence radius.
   \item Extend the Fourier analysis to ReLU and Swish activation functions and compare their frequency profiles to the sigmoid --- ReLU is not odd, so both sine and cosine terms will appear.
   \item Implement the Adam optimiser and analyse how its second-moment gradient estimate relates to the curvature information used by Newton--Raphson.
   \item Scale to a deeper network and track how the condition number of each layer's weight matrix evolves during training, and whether He initialisation maintains $\kappa$ close to 1 across all layers.

@@ -201,4 +201,20 @@ For MP4 export, also install [FFmpeg](https://ffmpeg.org/). Without it, `--save`
 
 ---
 
+## Credits
+
+All coding, animation, mathematical modelling, and documentation (LaTeX report + README) were done by **Harshal Vakhariya**.
+
+| Member | Contribution |
+|--------|-------------|
+| **Harshal Vakhariya** | Code, maths, dashboard, LaTeX report, GitHub |
+| Utsav Patel | MOM (Memorandum of Meeting) maintainer |
+| Meet Chauhan | PPT preparation |
+| Kathen Kale | Poster design |
+| Aum Nimkar | Research helper |
+
+→ See [CREDITS.md](CREDITS.md) for full detailed credits.
+
+---
+
 *CME202 — Mathematics II | School of Engineering and Technology | Navrachana University | 2026*

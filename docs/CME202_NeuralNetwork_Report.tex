@@ -370,13 +370,11 @@ Applying the quadratic formula:
 \]
 
 \begin{keyresult}{Eigenvalue Result}
-  \[
-    \lambda_1 \approx 0.892 \qquad \lambda_2 \approx 0.299 \qquad
-    \sigma_1 = \sqrt{\lambda_1} \approx 0.944 \qquad \sigma_2 = \sqrt{\lambda_2} \approx 0.547
-  \]
-  \[
-    \boxed{\kappa = \frac{\sigma_1}{\sigma_2} \approx 1.73 \quad \Rightarrow \quad \text{Well-conditioned --- stable training expected.}}
-  \]
+  \begin{gather*}
+    \lambda_1 \approx 0.892 \qquad \lambda_2 \approx 0.299 \\[3pt]
+    \sigma_1 = \sqrt{\lambda_1} \approx 0.944 \qquad \sigma_2 = \sqrt{\lambda_2} \approx 0.547 \\[3pt]
+    \boxed{\kappa = \frac{\sigma_1}{\sigma_2} \approx 1.73 \;\Rightarrow\; \text{Well-conditioned: stable training expected.}}
+  \end{gather*}
 \end{keyresult}
 
 A condition number of 1.73 is close to the ideal value of 1, confirming that the He-initialised weight matrix transforms data uniformly in all directions, consistent with the smooth convergence observed in the training curves.
@@ -517,13 +515,13 @@ The loss function $\mathcal{L}(\mathbf{W})$ for a neural network is a compositio
   \centering
   \caption{Comparison of optimisation methods applicable to neural network training}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{>{\bfseries}p{3cm} p{3.8cm} p{1.8cm} p{2cm} p{2cm}}
     \toprule
-    \textbf{Method} & \textbf{Information Used} & \textbf{Cost/Step} & \textbf{Convergence} & \textbf{CME202 Topic}\\
+    \textbf{Method} & \textbf{Information Used} & \textbf{Cost} & \textbf{Speed} & \textbf{CME202 Topic}\\
     \midrule
-    Gradient Descent    & $\nabla\mathcal{L}$                        & $O(n)$   & Linear    & Calculus \\
-    Newton--Raphson     & $\nabla\mathcal{L}$, $\nabla^2\mathcal{L}$ & $O(n^3)$ & Quadratic & Numerical Methods \\
-    Stochastic GD       & $\nabla\mathcal{L}$ (1 sample)             & $O(1)$   & Noisy     & Statistics \\
+    Gradient Descent    & $\nabla\mathcal{L}$ only                   & $O(n)$   & Linear    & Calculus \\[2pt]
+    Newton--Raphson     & $\nabla\mathcal{L}$, $\nabla^2\mathcal{L}$ & $O(n^3)$ & Quadratic & Numerical Methods \\[2pt]
+    Stochastic GD       & $\nabla\mathcal{L}$ (1 sample)             & $O(1)$   & Noisy     & Statistics \\[2pt]
     Mini-batch GD       & $\nabla\mathcal{L}$ (batch $b$)            & $O(b)$   & Practical & Linear Algebra \\
     \bottomrule
   \end{tabular}
@@ -656,14 +654,14 @@ The 99.3\% accuracy achieved on the XOR problem was not produced by a library do
   \centering
   \caption{Mathematics topics and their role in neural network training}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{llll}
+  \begin{tabular}{>{\bfseries}p{3.5cm} p{4cm} p{3.8cm} p{2.5cm}}
     \toprule
     \textbf{CME202 Topic} & \textbf{Role in Neural Network} & \textbf{Key Result} & \textbf{Value} \\
     \midrule
-    Linear Algebra        & Forward pass, weight analysis      & Condition number $\kappa$ & $\approx 1.73$ \\
-    Differential Calculus & Backpropagation, loss minimisation & Analytical minimum $w^*$ & $\ln 4 \approx 1.386$ \\
-    Fourier Analysis      & Sigmoid frequency structure        & Dominant coefficient $b_1$ & $\approx 0.391$ \\
-    Numerical Methods     & Gradient descent optimisation      & Final accuracy & $99.3\%$ \\
+    Linear Algebra        & Forward pass, weight analysis      & Condition number $\kappa$   & $\approx 1.73$ \\[2pt]
+    Differential Calculus & Backpropagation, loss minimisation & Analytical minimum $w^*$   & $\ln 4 \approx 1.386$ \\[2pt]
+    Fourier Analysis      & Sigmoid frequency structure        & Dominant coeff.\ $b_1$     & $\approx 0.391$ \\[2pt]
+    Numerical Methods     & Gradient descent optimisation      & Final accuracy              & $99.3\%$ \\
     \bottomrule
   \end{tabular}
   \label{tab:summary}
@@ -782,11 +780,11 @@ for epoch in range(700):
 
 For $\mathbf{W}^{[1]}=\begin{pmatrix}0.5&-0.3\\0.2&0.8\\-0.1&0.4\end{pmatrix}$,
 compute $\mathbf{G}=(\mathbf{W}^{[1]})^\top\mathbf{W}^{[1]}$:
-\[
-  G_{11} = 0.5^2 + 0.2^2 + 0.1^2 = 0.30, \quad
-  G_{12} = (0.5)(-0.3) + (0.2)(0.8) + (-0.1)(0.4) = -0.03, \quad
-  G_{22} = 0.3^2 + 0.8^2 + 0.4^2 = 0.89
-\]
+\begin{align*}
+  G_{11} &= 0.5^2 + 0.2^2 + 0.1^2 = 0.30 \\
+  G_{12} &= (0.5)(-0.3) + (0.2)(0.8) + (-0.1)(0.4) = -0.03 \\
+  G_{22} &= (-0.3)^2 + 0.8^2 + 0.4^2 = 0.89
+\end{align*}
 \[
   \mathbf{G} = \begin{pmatrix}0.30&-0.03\\-0.03&0.89\end{pmatrix}
 \]
@@ -801,8 +799,9 @@ Characteristic equation: $\lambda^2 - \operatorname{tr}(\mathbf{G})\lambda + \de
 \[
   \lambda = \frac{1.19 \pm \sqrt{1.19^2 - 4(0.2661)}}{2}
   = \frac{1.19 \pm \sqrt{0.3517}}{2}
-  \;\Rightarrow\;
-  \boxed{\lambda_1 \approx 0.892, \quad \lambda_2 \approx 0.299, \quad \kappa = \sqrt{\lambda_1/\lambda_2} \approx 1.73}
+\]
+\[
+  \boxed{\lambda_1 \approx 0.892, \qquad \lambda_2 \approx 0.299, \qquad \kappa = \sqrt{\lambda_1/\lambda_2} \approx 1.73}
 \]
 
 \subsection*{B.2 Sigmoid Derivative at $z=0$}

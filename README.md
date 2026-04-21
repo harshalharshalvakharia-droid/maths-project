@@ -214,7 +214,7 @@ All coding, animation, mathematical modelling, and documentation (LaTeX report +
 | Aum Nimkar | Research helper |
 
 → See [CREDITS.md](CREDITS.md) for full detailed credits.
-
+📌 **AI Usage Note:** This project was built with my own effort, with AI used only for learning, debugging, and concept clarification. Full details: [Postscript (AI Usage Declaration)](./postscript.md)
 ---
 
 *CME202 — Mathematics II | School of Engineering and Technology | Navrachana University | 2026*

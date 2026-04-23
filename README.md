@@ -1,4 +1,4 @@
-# CME202 — Neural Network Learning Dynamics
+# CME202 Mathematics — Neural Network Learning Dynamics
 
 **Minor Project | Mathematics II | Navrachana University, 2026**
 
@@ -24,7 +24,7 @@
 
 We train a neural network **from scratch** — NumPy only, no TensorFlow, no PyTorch — on the **XOR classification problem**, and show how every step maps to CME202 mathematics:
 
-| Step | Operation | CME202 Topic |
+| Step | Operation | Maths Topic |
 |------|-----------|-------------|
 | Forward pass | `z = Wa + b`, `a = σ(z)` | **Linear Algebra** |
 | Weight analysis | SVD, eigenvalues, condition number | **Linear Algebra** |
@@ -215,6 +215,9 @@ All coding, animation, mathematical modelling, and documentation (LaTeX report +
 
 → See [CREDITS.md](CREDITS.md) for full detailed credits.
 
+
+
+📌 **AI Usage Note:** This project was built with my own effort, with AI used only for learning, debugging, and concept clarification. Full details: [PostScript (AI Usage Declaration)](./PostScript.md)
 ---
 
 *CME202 — Mathematics II | School of Engineering and Technology | Navrachana University | 2026*

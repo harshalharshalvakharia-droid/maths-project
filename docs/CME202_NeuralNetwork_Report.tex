@@ -7,6 +7,7 @@
 
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
 \usepackage{amsmath, amssymb, mathtools}
+\usepackage{nicefrac}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{caption}
@@ -44,8 +45,8 @@
 
 % ── Header / Footer ──────────────────────────────────────────
 \pagestyle{fancy}\fancyhf{}
-\rhead{{ \textendash{} \textbar{} The Architecture of Intelligence}}
-\lhead{\textcolor{navrachana}{}}
+\rhead{\textcolor{navrachana}{\small The Architecture of Intelligence}}
+\lhead{\textcolor{navrachana}{\small CME202 \textendash{} Mathematics II}}
 \cfoot{\textcolor{navblue}{\small \thepage}}
 \renewcommand{\headrulewidth}{0.6pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{navrachana}\leaders\hrule height \headrulewidth\hfill}}
@@ -115,7 +116,7 @@
 
 {\Large\bfseries\color{navrachana} Navrachana University}\\[0.15cm]
 {\large\color{navblue} School of Engineering and Technology}\\[0.1cm]
-   \quad CME202 \textendash{} Mathematics II}
+{\normalsize B.Tech (CE \textbar{} ME \textbar{} EEE) \quad $\boldsymbol{\cdot}$ \quad CME202 \textendash{} Mathematics II}
 
 \vspace{0.6cm}
 {\color{navrachana}\rule{\linewidth}{1pt}}\\[0.35cm]
@@ -176,7 +177,7 @@ Fourier Analysis $\;\boldsymbol{\cdot}\;$ Numerical Optimisation}
 \section{Abstract}
 % ============================================================
 
-Neural networks are behind almost every modern AI system, and every operation inside them is mathematics. This project takes a neural network apart, step by step, and maps each operation directly to topics from Math. We cover four areas: \textbf{linear algebra} for understanding how data flows through the network; \textbf{differential calculus} for understanding how it learns; \textbf{Fourier analysis} for understanding the activation function at a frequency level; and \textbf{numerical methods} for understanding how the optimiser finds the solution iteratively.
+Neural networks are behind almost every modern AI system, and every operation inside them is mathematics. This project takes a neural network apart, step by step, and maps each operation directly to topics from CME202. We cover four areas: \textbf{linear algebra} for understanding how data flows through the network; \textbf{differential calculus} for understanding how it learns; \textbf{Fourier analysis} for understanding the activation function at a frequency level; and \textbf{numerical methods} for understanding how the optimiser finds the solution iteratively.
 
 To ground the theory, a real neural network of architecture $[2 \to 8 \to 8 \to 1]$ was trained on the XOR classification problem from scratch using Python and NumPy only --- no machine learning libraries whatsoever. The network reached \textbf{99.3\% accuracy} in 700 training steps. Every key result --- eigenvalues, Fourier coefficients, the analytical minimum of the loss, convergence of gradient descent --- was derived by hand and cross-verified against the code output.
 
@@ -244,7 +245,7 @@ Formally, given $n = 300$ noisy training points $\{(\mathbf{x}^{(i)}, y^{(i)})\}
   \item \textbf{Activation:} Sigmoid $\sigma(z) = \dfrac{1}{1+e^{-z}}$ at every neuron
   \item \textbf{Optimiser:} Batch Gradient Descent, learning rate $\eta = 0.5$
   \item \textbf{Training:} 700 epochs, 300 data points, NumPy only (no ML frameworks)
-  \item \textbf{Weight initialisation:} He initialisation, $w \sim \mathcal{N}\!\left(0, \sqrt{2/n_{\text{in}}}\right)$
+  \item \textbf{Weight initialisation:} He initialisation, $w \sim \mathcal{N}\!\left(0,\, \sqrt{2/n_{\mathrm{in}}}\right)$
 \end{itemize}
 
 \subsection{Deliverables}
@@ -293,7 +294,7 @@ For the $[2 \to 8 \to 8 \to 1]$ architecture with a single input $\mathbf{x} \in
   \hat{y}           &= \sigma(z^{[3]}) \in [0,1]
 \end{align}
 
-The prediction $\hat{y}$ is a probability. If $\hat{y} \geq 0.5$, the network predicts class~1; otherwise class~0. The total parameter count is $(8\times2 + 8) + (8\times8 + 8) + (1\times8 + 1) = \mathbf{105}$ trainable parameters.
+The prediction $\hat{y}$ is a probability. If $\hat{y} \geq 0.5$, the network predicts class~1; otherwise class~0. The total parameter count is $(8{\times}2 + 8) + (8{\times}8 + 8) + (1{\times}8 + 1) = \mathbf{105}$ trainable parameters.
 
 \subsection{Modelling Assumptions}
 
@@ -301,7 +302,7 @@ The prediction $\hat{y}$ is a probability. If $\hat{y} \geq 0.5$, the network pr
   \item Fully connected layers with no skip connections or regularisation.
   \item Sigmoid activation at every layer, including the output (binary classification).
   \item Fixed learning rate $\eta = 0.5$ throughout training (no scheduling).
-  \item Weights initialised from $\mathcal{N}(0,\,\nicefrac{2}{n_{\text{in}}})$ --- He initialisation, appropriate for sigmoid networks.
+  \item Weights initialised from $\mathcal{N}(0,\, 2/n_{\mathrm{in}})$ --- He initialisation, appropriate for sigmoid networks.
   \item Batch gradient descent: all 300 samples used per weight update.
 \end{enumerate}
 
@@ -348,15 +349,15 @@ For the example weight matrix:
   \mathbf{W}^{[1]} = \begin{pmatrix}0.5&-0.3\\0.2&0.8\\-0.1&0.4\end{pmatrix}
 \]
 
-Computing the Gram matrix:
+Computing the Gram matrix elements:
 \[
-  \mathbf{G} = (\mathbf{W}^{[1]})^\top\mathbf{W}^{[1]} =
-  \begin{pmatrix}
-    0.5^2+0.2^2+0.1^2 & (0.5)(-0.3)+(0.2)(0.8)+(-0.1)(0.4) \\
-    \cdot             & 0.3^2+0.8^2+0.4^2
-  \end{pmatrix}
-  =
-  \begin{pmatrix}0.30&-0.03\\-0.03&0.89\end{pmatrix}
+  G_{11} = 0.5^2+0.2^2+0.1^2 = 0.30, \qquad
+  G_{12} = (0.5)(-0.3)+(0.2)(0.8)+(-0.1)(0.4) = -0.03
+\]
+\[
+  G_{22} = 0.3^2+0.8^2+0.4^2 = 0.89
+  \qquad\Rightarrow\qquad
+  \mathbf{G} = \begin{pmatrix}0.30&-0.03\\-0.03&0.89\end{pmatrix}
 \]
 
 The characteristic equation $\det(\mathbf{G} - \lambda\mathbf{I}) = 0$ gives:
@@ -370,13 +371,16 @@ Applying the quadratic formula:
 \]
 
 \begin{keyresult}{Eigenvalue Result}
-  \[
-    \lambda_1 \approx 0.892 \qquad \lambda_2 \approx 0.299 \qquad
-    \sigma_1 = \sqrt{\lambda_1} \approx 0.944 \qquad \sigma_2 = \sqrt{\lambda_2} \approx 0.547
-  \]
-  \[
-    \boxed{\kappa = \frac{\sigma_1}{\sigma_2} \approx 1.73 \quad \Rightarrow \quad \text{Well-conditioned --- stable training expected.}}
-  \]
+\[
+  \lambda_1 \approx 0.892, \qquad \lambda_2 \approx 0.299
+\]
+\[
+  \sigma_1 = \sqrt{\lambda_1} \approx 0.944, \qquad \sigma_2 = \sqrt{\lambda_2} \approx 0.547
+\]
+\[
+  \boxed{\kappa = \frac{\sigma_1}{\sigma_2} \approx 1.73
+  \quad\Longrightarrow\quad \text{Well-conditioned --- stable training expected.}}
+\]
 \end{keyresult}
 
 A condition number of 1.73 is close to the ideal value of 1, confirming that the He-initialised weight matrix transforms data uniformly in all directions, consistent with the smooth convergence observed in the training curves.
@@ -410,7 +414,7 @@ The derivative achieves its maximum of $0.25$ at $z=0$ and decays symmetrically 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{sigmoid_and_derivative.png}
-  \caption{Left: $\sigma(z)$ maps any real input to $(0,1)$. The shaded red regions mark the saturation zones where $\sigma'(z) \approx 0$. Right: $\sigma'(z)$ reaches its maximum of 0.25 at $z=0$ and collapses to near zero in the saturation regions. Learning signal is proportional to this derivative --- a saturated neuron contributes essentially nothing to the backward pass.}
+  \caption{Left: $\sigma(z)$ maps any real input to $(0,1)$. Shaded red regions mark saturation zones where $\sigma'(z) \approx 0$. Right: $\sigma'(z)$ peaks at 0.25 when $z=0$ and collapses near saturation. Learning signal is proportional to this derivative --- a saturated neuron contributes essentially nothing to the backward pass.}
   \label{fig:sig}
 \end{figure}
 
@@ -419,34 +423,34 @@ The derivative achieves its maximum of $0.25$ at $z=0$ and decays symmetrically 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{loss_landscape.png}
-  \caption{Left: loss landscape $\mathcal{L}(w)=\frac{1}{2}(\sigma(w)-0.8)^2$ with the gradient descent trajectory starting from $w_0=-2$. Red dots are iterations; the dashed green line marks $w^*=\ln 4 \approx 1.386$. Right: convergence speed comparison --- gradient descent takes $\sim\!20$ iterations while Newton--Raphson reaches the same tolerance in $\sim\!5$ steps, but at higher cost per iteration.}
+  \caption{Left: loss landscape $\mathcal{L}(w)=\frac{1}{2}(\sigma(w)-0.8)^2$ with the gradient descent trajectory from $w_0=-2$. Red dots are iterations; the dashed green line marks $w^*=\ln 4 \approx 1.386$. Right: convergence comparison --- gradient descent takes $\sim\!20$ iterations while Newton--Raphson reaches the same tolerance in $\sim\!5$ steps.}
   \label{fig:loss}
 \end{figure}
 
 \subsection{Backpropagation --- The Chain Rule, Layer by Layer}
 
-The network learns by computing $\nabla_{\mathbf{W}^{[l]}}\mathcal{L}$ for every layer and updating $\mathbf{W}^{[l]} \leftarrow \mathbf{W}^{[l]} - \eta\,\nabla_{\mathbf{W}^{[l]}}\mathcal{L}$. The gradient is found by applying the chain rule backwards through the network:
+The network learns by computing $\nabla_{\mathbf{W}^{[l]}}\mathcal{L}$ for every layer and updating $\mathbf{W}^{[l]} \leftarrow \mathbf{W}^{[l]} - \eta\,\nabla_{\mathbf{W}^{[l]}}\mathcal{L}$. The gradient is found by the chain rule applied backwards:
 
 \begin{align}
   \boldsymbol{\delta}^{[L]}   &= \hat{\mathbf{y}} - \mathbf{y}
-    & &\text{(output error, cross-entropy + sigmoid)} \\
+    & &\text{(output error)} \\
   \boldsymbol{\delta}^{[l]}   &= \bigl(\mathbf{W}^{[l+1]}\bigr)^\top \boldsymbol{\delta}^{[l+1]}
     \odot \sigma'\!\left(\mathbf{z}^{[l]}\right)
-    & &\text{(propagate back through layer } l\text{)} \\
+    & &\text{(propagate back)} \\
   \nabla_{\mathbf{W}^{[l]}}\mathcal{L} &= \frac{1}{m}\,\boldsymbol{\delta}^{[l]} \bigl(\mathbf{a}^{[l-1]}\bigr)^\top
     & &\text{(weight gradient)} \\
   \mathbf{W}^{[l]}  &\leftarrow \mathbf{W}^{[l]} - \eta\,\nabla_{\mathbf{W}^{[l]}}\mathcal{L}
-    & &\text{(gradient descent update)}
+    & &\text{(update)}
 \end{align}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{backprop_graph.png}
-  \caption{Backpropagation computation graph. Black arrows show the forward pass (data flows left to right). Red arrows show the backward pass --- error signals flow right to left, each carrying a gradient term computed by the chain rule. The weight gradient $\partial\mathcal{L}/\partial\mathbf{W}^{[l]}$ at each layer is the product of the upstream delta with the downstream activations.}
+  \caption{Backpropagation computation graph. Black arrows show the forward pass (data flows left to right). Red arrows show the backward pass --- error signals flow right to left, each carrying a gradient term computed by the chain rule. The weight gradient at each layer is the product of the upstream delta with the downstream activations.}
   \label{fig:backprop}
 \end{figure}
 
-The key mathematical insight is that the chain rule factorises the total derivative into a product of local derivatives at each layer. No global information is needed --- each layer only needs to know the gradient flowing into it from the layer above.
+The key mathematical insight is that the chain rule factorises the total derivative into a product of local derivatives at each layer. Each layer only needs to know the gradient flowing into it from the layer above.
 
 \newpage
 
@@ -493,13 +497,13 @@ The Fourier sine coefficients are computed by numerical integration:
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{fourier_sigmoid.png}
-  \caption{Left: Fourier approximations with $N = 1, 3, 5, 10$ terms compared to the exact sigmoid. Even 5 terms achieve a close match. Centre: coefficient magnitudes decay rapidly with harmonic number, confirming the sigmoid is low-frequency dominated. Right: maximum approximation error as a function of $N$ on a log scale --- the error falls by an order of magnitude within the first 10 terms.}
+  \caption{Left: Fourier approximations with $N = 1, 3, 5, 10$ terms compared to the exact sigmoid. Even 5 terms give a close match. Centre: coefficient magnitudes decay rapidly, confirming the sigmoid is low-frequency dominated. Right: maximum approximation error vs.\ $N$ on a log scale.}
   \label{fig:fourier}
 \end{figure}
 
 \subsection{What This Tells Us About the Network}
 
-The rapid decay $|b_1| \gg |b_2| \gg |b_3| \cdots$ tells us the sigmoid is primarily sensitive to slow-varying, low-frequency patterns. High-frequency fluctuations --- rapid noise --- are attenuated naturally. This is why the sigmoid network tends to learn smooth, generalising decision boundaries rather than memorising every noisy fluctuation in the training data. The Fourier analysis makes this quantitative: the function is dominated by its first harmonic, and all higher frequencies contribute successively less.
+The rapid decay $|b_1| \gg |b_2| \gg |b_3| \cdots$ tells us the sigmoid is primarily sensitive to slow-varying, low-frequency patterns. High-frequency noise is attenuated naturally. This is why the sigmoid network learns smooth, generalising decision boundaries rather than memorising every noisy fluctuation in the training data.
 
 \newpage
 
@@ -509,22 +513,22 @@ The rapid decay $|b_1| \gg |b_2| \gg |b_3| \cdots$ tells us the sigmoid is prima
 
 \subsection{Why Analytical Solutions Are Not Available}
 
-The loss function $\mathcal{L}(\mathbf{W})$ for a neural network is a composition of sigmoid functions and matrix multiplications across multiple layers. Setting $\nabla_{\mathbf{W}}\mathcal{L} = 0$ and solving analytically is not feasible for any non-trivial architecture: the equations are coupled nonlinear systems with no closed-form solution. Numerical optimisation methods are therefore not a convenience --- they are a necessity.
+The loss function $\mathcal{L}(\mathbf{W})$ for a neural network is a composition of sigmoid functions and matrix multiplications across multiple layers. Setting $\nabla_{\mathbf{W}}\mathcal{L} = 0$ and solving analytically is not feasible for any non-trivial architecture. Numerical optimisation methods are therefore a necessity.
 
 \subsection{Methods Compared}
 
 \begin{table}[H]
   \centering
-  \caption{Comparison of optimisation methods applicable to neural network training}
+  \caption{Comparison of optimisation methods for neural network training}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{lcccc}
+  \begin{tabular}{lp{3.2cm}ccc}
     \toprule
-    \textbf{Method} & \textbf{Information Used} & \textbf{Cost/Step} & \textbf{Convergence} & \textbf{CME202 Topic}\\
+    \textbf{Method} & \textbf{Information Used} & \textbf{Cost/Step} & \textbf{Convergence} & \textbf{Topic}\\
     \midrule
-    Gradient Descent    & $\nabla\mathcal{L}$                        & $O(n)$   & Linear    & Calculus \\
-    Newton--Raphson     & $\nabla\mathcal{L}$, $\nabla^2\mathcal{L}$ & $O(n^3)$ & Quadratic & Numerical Methods \\
-    Stochastic GD       & $\nabla\mathcal{L}$ (1 sample)             & $O(1)$   & Noisy     & Statistics \\
-    Mini-batch GD       & $\nabla\mathcal{L}$ (batch $b$)            & $O(b)$   & Practical & Linear Algebra \\
+    Gradient Descent  & $\nabla\mathcal{L}$                        & $O(n)$   & Linear    & Calculus \\
+    Newton--Raphson   & $\nabla\mathcal{L}$, $\nabla^2\mathcal{L}$ & $O(n^3)$ & Quadratic & Num.\ Methods \\
+    Stochastic GD     & $\nabla\mathcal{L}$ (1 sample)             & $O(1)$   & Noisy     & Statistics \\
+    Mini-batch GD     & $\nabla\mathcal{L}$ (batch $b$)            & $O(b)$   & Practical & Lin.\ Algebra \\
     \bottomrule
   \end{tabular}
   \label{tab:methods}
@@ -532,7 +536,7 @@ The loss function $\mathcal{L}(\mathbf{W})$ for a neural network is a compositio
 
 \subsection{Gradient Descent --- Step-by-Step Verification}
 
-To verify the implementation is correct, the algorithm was tested on the one-dimensional loss:
+To verify the implementation, the algorithm was tested on the one-dimensional loss:
 \[
   \mathcal{L}(w) = \frac{1}{2}(\sigma(w) - 0.8)^2
 \]
@@ -541,7 +545,6 @@ The analytical minimum is found by setting $\mathcal{L}'(w) = 0$:
 \[
   \mathcal{L}'(w) = (\sigma(w) - 0.8)\,\sigma'(w) = 0
   \;\Rightarrow\; \sigma(w^*) = 0.8
-  \;\Rightarrow\; \frac{1}{1+e^{-w^*}} = 0.8
   \;\Rightarrow\; w^* = \ln\frac{0.8}{0.2} = \ln 4 \approx 1.386
 \]
 
@@ -549,9 +552,9 @@ Starting from $w_0 = -2$ with $\eta = 0.5$:
 
 \begin{table}[H]
   \centering
-  \caption{Gradient descent convergence on $\mathcal{L}(w) = \frac{1}{2}(\sigma(w)-0.8)^2$. Analytical minimum: $w^* = \ln 4 \approx 1.386$.}
+  \caption{Gradient descent on $\mathcal{L}(w) = \frac{1}{2}(\sigma(w)-0.8)^2$. Minimum: $w^* = \ln 4 \approx 1.386$.}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{cccl}
+  \begin{tabular}{cccc}
     \toprule
     \textbf{Iteration} $t$ & $w_t$ & $\sigma(w_t)$ & $\mathcal{L}(w_t)$ \\
     \midrule
@@ -567,7 +570,7 @@ Starting from $w_0 = -2$ with $\eta = 0.5$:
 \end{table}
 
 \begin{keyresult}{Verification}
-  Gradient descent converged to $w \approx 1.386 = \ln 4$ within 20 iterations, confirming both the implementation and the theoretical prediction. The Newton--Raphson method reaches the same tolerance in approximately 5 iterations, at the cost of computing the second derivative at each step.
+  Gradient descent converged to $w \approx 1.386 = \ln 4$ within 20 iterations, confirming both the implementation and the theoretical prediction. Newton--Raphson reaches the same tolerance in approximately 5 iterations, at the cost of computing the second derivative at each step.
 \end{keyresult}
 
 \subsection{Newton--Raphson Comparison}
@@ -578,7 +581,7 @@ The Newton--Raphson update is:
   \label{eq:nr}
 \end{equation}
 
-For the same one-dimensional problem, Newton--Raphson converges in approximately 5 iterations versus 20 for gradient descent. The trade-off is that computing and inverting the Hessian $\nabla^2\mathcal{L}$ costs $O(n^3)$ for $n$ parameters --- prohibitively expensive for large networks. Gradient descent at $O(n)$ per step is therefore the practical choice for neural network training, which is why it remains the foundation of all modern optimisers.
+For the same one-dimensional problem, Newton--Raphson converges in approximately 5 iterations versus 20 for gradient descent. The trade-off is that computing and inverting the Hessian $\nabla^2\mathcal{L}$ costs $O(n^3)$ for $n$ parameters --- prohibitively expensive for large networks. Gradient descent at $O(n)$ per step is therefore the practical choice for neural network training.
 
 \newpage
 
@@ -593,7 +596,7 @@ The $[2 \to 8 \to 8 \to 1]$ network was trained for 700 epochs on 300 noisy XOR 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{training_curves.png}
-  \caption{Training curves over 700 epochs. Left: cross-entropy loss falls sharply in the first 150 epochs, then plateaus near zero. The shaded area under the curve makes the rate of decay visually clear. Right: accuracy rises from approximately 50\% (random at initialisation) to 99.3\%, with the 99\% reference line shown. The behaviour is fully consistent with gradient descent converging to a minimum of $\mathcal{L}$.}
+  \caption{Training curves over 700 epochs. Left: cross-entropy loss falls sharply in the first 150 epochs, then plateaus near zero. Right: accuracy rises from approximately 50\% (random at initialisation) to 99.3\%, with the 99\% reference line shown. The behaviour is fully consistent with gradient descent converging to a minimum of $\mathcal{L}$.}
   \label{fig:train}
 \end{figure}
 
@@ -602,7 +605,7 @@ The $[2 \to 8 \to 8 \to 1]$ network was trained for 700 epochs on 300 noisy XOR 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{decision_boundary.png}
-  \caption{Decision boundary at four stages of training on the XOR dataset (red = class 0, blue = class 1). Epoch~0: essentially random (50\% accuracy). Epoch~50: early structure emerges. Epoch~200: the four XOR quadrants are becoming visible. Epoch~699: the boundary correctly isolates all clusters at 99\% accuracy. The percentage badge (bottom-right of each panel) shows classification accuracy at that snapshot. This visual is gradient descent and backpropagation made tangible.}
+  \caption{Decision boundary at four stages of training (red = class 0, blue = class 1). Epoch~0: essentially random (50\%). Epoch~50: early structure emerges. Epoch~200: XOR quadrants become visible. Epoch~699: boundary correctly isolates all clusters at 99\% accuracy. This is gradient descent and backpropagation made tangible.}
   \label{fig:db}
 \end{figure}
 
@@ -611,7 +614,7 @@ The $[2 \to 8 \to 8 \to 1]$ network was trained for 700 epochs on 300 noisy XOR 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{weight_gradient_dynamics.png}
-  \caption{Left: mean weight magnitude grows as the network moves from its symmetric random initialisation toward a task-specific solution; the shaded band shows $\pm$1 standard deviation. Right: gradient magnitude (log scale) decreases by several orders of magnitude during training, approaching zero at convergence --- exactly the condition $\nabla\mathcal{L} = 0$ predicted by the optimality conditions of calculus.}
+  \caption{Left: mean weight magnitude grows as the network moves from random initialisation toward a task-specific solution; shaded band shows $\pm1$ std dev. Right: gradient magnitude (log scale) decreases by several orders of magnitude, approaching zero at convergence --- the condition $\nabla\mathcal{L} = 0$ predicted by calculus.}
   \label{fig:wg}
 \end{figure}
 
@@ -620,20 +623,20 @@ The $[2 \to 8 \to 8 \to 1]$ network was trained for 700 epochs on 300 noisy XOR 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{dashboard_snapshot.png}
-  \caption{Snapshot of the live training dashboard (\texttt{dashboard.py}) at the end of training. The five panels show simultaneously: the evolving decision boundary with XOR data points, training loss, training accuracy, a live bar chart of 20 sampled weight values, and a live bar chart of gradient magnitudes. Run \texttt{python dashboard.py} to see all five panels animating in real time, or \texttt{python dashboard.py --save} to export as MP4/GIF.}
+  \caption{Snapshot of the live training dashboard (\texttt{dashboard.py}) at end of training. The five panels show: decision boundary, training loss, training accuracy, live weight bar chart, and live gradient bar chart. Run \texttt{python dashboard.py} to animate in real time, or \texttt{python dashboard.py --save} to export as MP4/GIF.}
   \label{fig:dashboard}
 \end{figure}
 
 \subsection{Summary of Key Results}
 
 \begin{enumerate}[leftmargin=2em, itemsep=5pt]
-  \item \textbf{Linear Algebra:} The condition number $\kappa \approx 1.73$ confirms the initialised weight matrix is well-conditioned. The SVD shows the network compresses data unevenly but not damagingly, keeping gradient flow stable throughout training.
+  \item \textbf{Linear Algebra:} Condition number $\kappa \approx 1.73$ confirms a well-conditioned initialisation. SVD shows the network compresses data unevenly but not damagingly, keeping gradient flow stable.
 
-  \item \textbf{Differential Calculus:} The analytical minimum $w^* = \ln 4 \approx 1.386$ was verified against gradient descent convergence within 20 iterations. Backpropagation correctly propagated error signals through all three layers using the chain rule.
+  \item \textbf{Differential Calculus:} Analytical minimum $w^* = \ln 4 \approx 1.386$ was verified against gradient descent convergence within 20 iterations. Backpropagation correctly propagated error signals through all three layers.
 
-  \item \textbf{Fourier Analysis:} The sigmoid is dominated by its first harmonic ($b_1 \approx 0.391$), confirming its low-pass character. Numerical integration error was below $2\times10^{-4}$ across all computed coefficients.
+  \item \textbf{Fourier Analysis:} The sigmoid is dominated by its first harmonic ($b_1 \approx 0.391$), confirming its low-pass character. Numerical integration error was below $2\times10^{-4}$.
 
-  \item \textbf{Numerical Methods:} Gradient descent converged to \textbf{99.3\% accuracy} in 700 epochs. The gradient magnitude decayed by several orders of magnitude at convergence, consistent with reaching a critical point of $\mathcal{L}(\mathbf{W})$.
+  \item \textbf{Numerical Methods:} Gradient descent converged to \textbf{99.3\% accuracy} in 700 epochs. Gradient magnitude decayed by several orders of magnitude at convergence.
 \end{enumerate}
 
 \newpage
@@ -656,14 +659,14 @@ The 99.3\% accuracy achieved on the XOR problem was not produced by a library do
   \centering
   \caption{Mathematics topics and their role in neural network training}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{llll}
+  \begin{tabular}{p{3.2cm} p{4.2cm} p{3.2cm} r}
     \toprule
-    \textbf{CME202 Topic} & \textbf{Role in Neural Network} & \textbf{Key Result} & \textbf{Value} \\
+    \textbf{Topic} & \textbf{Role} & \textbf{Key Result} & \textbf{Value} \\
     \midrule
     Linear Algebra        & Forward pass, weight analysis      & Condition number $\kappa$ & $\approx 1.73$ \\
-    Differential Calculus & Backpropagation, loss minimisation & Analytical minimum $w^*$ & $\ln 4 \approx 1.386$ \\
-    Fourier Analysis      & Sigmoid frequency structure        & Dominant coefficient $b_1$ & $\approx 0.391$ \\
-    Numerical Methods     & Gradient descent optimisation      & Final accuracy & $99.3\%$ \\
+    Differential Calculus & Backpropagation, minimisation      & Analytical min.\ $w^*$    & $\ln 4 \approx 1.386$ \\
+    Fourier Analysis      & Sigmoid frequency structure        & Leading coeff.\ $b_1$     & $\approx 0.391$ \\
+    Numerical Methods     & Gradient descent optimisation      & Final accuracy            & $99.3\%$ \\
     \bottomrule
   \end{tabular}
   \label{tab:summary}
@@ -672,10 +675,10 @@ The 99.3\% accuracy achieved on the XOR problem was not produced by a library do
 \subsection{Future Directions}
 
 \begin{itemize}[leftmargin=2em, itemsep=4pt]
-  \item Analyse gradient descent as a discrete dynamical system using the ODE stability framework from Maths, to formally characterise the convergence radius.
-  \item Extend the Fourier analysis to ReLU and Swish activation functions and compare their frequency profiles to the sigmoid --- ReLU is not odd, so both sine and cosine terms will appear.
+  \item Analyse gradient descent as a discrete dynamical system using the ODE stability framework, to formally characterise the convergence radius.
+  \item Extend the Fourier analysis to ReLU and Swish activations and compare their frequency profiles to the sigmoid.
   \item Implement the Adam optimiser and analyse how its second-moment gradient estimate relates to the curvature information used by Newton--Raphson.
-  \item Scale to a deeper network and track how the condition number of each layer's weight matrix evolves during training, and whether He initialisation maintains $\kappa$ close to 1 across all layers.
+  \item Scale to a deeper network and track how the condition number of each weight matrix evolves during training.
 \end{itemize}
 
 \newpage
@@ -782,12 +785,16 @@ for epoch in range(700):
 
 For $\mathbf{W}^{[1]}=\begin{pmatrix}0.5&-0.3\\0.2&0.8\\-0.1&0.4\end{pmatrix}$,
 compute $\mathbf{G}=(\mathbf{W}^{[1]})^\top\mathbf{W}^{[1]}$:
+
 \[
-  G_{11} = 0.5^2 + 0.2^2 + 0.1^2 = 0.30, \quad
-  G_{12} = (0.5)(-0.3) + (0.2)(0.8) + (-0.1)(0.4) = -0.03, \quad
-  G_{22} = 0.3^2 + 0.8^2 + 0.4^2 = 0.89
+  G_{11} = 0.5^2 + 0.2^2 + 0.1^2 = 0.30
 \]
 \[
+  G_{12} = (0.5)(-0.3)+(0.2)(0.8)+(-0.1)(0.4) = -0.03
+\]
+\[
+  G_{22} = 0.3^2+0.8^2+0.4^2 = 0.89
+  \qquad\Longrightarrow\qquad
   \mathbf{G} = \begin{pmatrix}0.30&-0.03\\-0.03&0.89\end{pmatrix}
 \]
 
@@ -801,8 +808,11 @@ Characteristic equation: $\lambda^2 - \operatorname{tr}(\mathbf{G})\lambda + \de
 \[
   \lambda = \frac{1.19 \pm \sqrt{1.19^2 - 4(0.2661)}}{2}
   = \frac{1.19 \pm \sqrt{0.3517}}{2}
-  \;\Rightarrow\;
-  \boxed{\lambda_1 \approx 0.892, \quad \lambda_2 \approx 0.299, \quad \kappa = \sqrt{\lambda_1/\lambda_2} \approx 1.73}
+\]
+
+\[
+  \boxed{\lambda_1 \approx 0.892, \qquad \lambda_2 \approx 0.299,
+  \qquad \kappa = \sqrt{\lambda_1/\lambda_2} \approx 1.73}
 \]
 
 \subsection*{B.2 Sigmoid Derivative at $z=0$}
@@ -810,7 +820,10 @@ Characteristic equation: $\lambda^2 - \operatorname{tr}(\mathbf{G})\lambda + \de
 By formula: $\sigma'(0) = \sigma(0)(1-\sigma(0)) = 0.5 \times 0.5 = \mathbf{0.25}$
 
 Finite difference check:
-$\dfrac{\sigma(0.001)-\sigma(-0.001)}{0.002} = \dfrac{0.50025 - 0.49975}{0.002} = 0.25 \;\checkmark$
+\[
+  \frac{\sigma(0.001)-\sigma(-0.001)}{0.002}
+  = \frac{0.50025 - 0.49975}{0.002} = 0.25 \;\checkmark
+\]
 
 \subsection*{B.3 Analytical Minimum of the Loss}
 
@@ -819,11 +832,11 @@ Setting $\mathcal{L}'(w) = 0$:
   (\sigma(w^*) - 0.8)\,\sigma'(w^*) = 0
   \;\Rightarrow\; \sigma(w^*) = 0.8
   \;\Rightarrow\; \frac{1}{1+e^{-w^*}} = 0.8
-  \;\Rightarrow\; 1 + e^{-w^*} = 1.25
-  \;\Rightarrow\; e^{-w^*} = 0.25
 \]
 \[
-  \therefore \quad w^* = -\ln(0.25) = \ln 4 \approx 1.386 \quad \checkmark
+  \Rightarrow\; 1 + e^{-w^*} = 1.25
+  \;\Rightarrow\; e^{-w^*} = 0.25
+  \;\Rightarrow\; w^* = -\ln(0.25) = \ln 4 \approx 1.386 \;\checkmark
 \]
 
 Gradient descent converged to $w \approx 1.386$ within 20 iterations, confirming the result numerically.
@@ -834,7 +847,7 @@ Gradient descent converged to $w \approx 1.386$ within 20 iterations, confirming
   b_1 = \frac{1}{\pi}\int_{-\pi}^{\pi} \sigma(x)\sin(x)\,dx
 \]
 
-Since the integrand is even (product of odd $\sigma$ correction and odd $\sin x$, plus a constant), numerical integration gives:
+Since the integrand is even (product of the odd part of $\sigma$ with $\sin x$), numerical integration gives:
 \[
   \boxed{b_1 \approx 0.391}
 \]
@@ -850,18 +863,18 @@ The dominant coefficient confirms the sigmoid is primarily described by a single
 
 \begin{center}
   {\large\bfseries\color{navrachana} CME202 Minor Project --- Group Contributions}\\[0.4cm]
-  {\small\color{gray} Navrachana University | School of Engineering and Technology | 2026}
+  {\small\color{gray} Navrachana University $\cdot$ School of Engineering and Technology $\cdot$ 2026}
 \end{center}
 
 \vspace{0.5cm}
 
 \subsection*{Technical Work}
 
-\begin{tabular}{>{\bfseries}p{5cm} p{9cm}}
+\begin{tabular}{>{\bfseries}p{4.5cm} p{9.5cm}}
   \toprule
   \textbf{Contributor} & \textbf{Work Done} \\
   \midrule
-  Harshal Vakhariya & All Python code (neural network, training, math plots, live dashboard, animation), all mathematical modelling and derivations, full \LaTeX\ report writing and typesetting, GitHub repository setup and documentation \\
+  Harshal Vakhariya & All Python code (neural network, training, math plots, live dashboard), all mathematical modelling and derivations, full \LaTeX\ report writing and typesetting, GitHub repository setup and documentation \\
   \bottomrule
 \end{tabular}
 
@@ -869,7 +882,7 @@ The dominant coefficient confirms the sigmoid is primarily described by a single
 
 \subsection*{Group Contributions}
 
-\begin{tabular}{>{\bfseries}p{5cm} p{9cm}}
+\begin{tabular}{>{\bfseries}p{4.5cm} p{9.5cm}}
   \toprule
   \textbf{Member} & \textbf{Role} \\
   \midrule
@@ -884,8 +897,8 @@ The dominant coefficient confirms the sigmoid is primarily described by a single
 
 \begin{center}
   \small\color{gray}
-  Full project credits and acknowledgements available at:\\
-  \url{https://github.com/harshalharshalvakharia-droid/maths-project/blob/main/CREDITS.md}
+  Full project credits available at:\\
+  \url{https://github.com/harshalharshalvakharia-droid/maths-project}
 \end{center}
 
 \end{document}
